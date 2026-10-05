@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
 
-    <!-- MONETAG -->
+    <!-- MONETAG - IN-PAGE PUSH -->
     <script>(function(s){s.dataset.zone='11963397',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+    <!-- MONETAG - VIGNETTE -->
+    <script>(function(s){s.dataset.zone='11963401',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,8 +44,6 @@
             padding: 35px 20px 25px;
         }
 
-        /* TITLE */
-
         .title {
             text-align: center;
             font-size: 48px;
@@ -61,8 +62,6 @@
             margin-bottom: 25px;
         }
 
-        /* MAIN LAYOUT */
-
         .layout {
             width: 100%;
             max-width: 1250px;
@@ -72,8 +71,6 @@
             align-items: center;
             gap: 45px;
         }
-
-        /* SIDE ADS */
 
         .side-ad {
             width: 180px;
@@ -100,8 +97,6 @@
             font-size: 12px;
             color: #eeeeee;
         }
-
-        /* MAIN CARD */
 
         .card {
             width: 100%;
@@ -132,8 +127,6 @@
                 0 0 12px rgba(255,255,255,0.7),
                 0 4px 10px rgba(0,0,0,0.5);
         }
-
-        /* PROGRESS BAR */
 
         .progress-container {
             width: 100%;
@@ -167,8 +160,6 @@
             margin-bottom: 25px;
         }
 
-        /* CENTER AD */
-
         .center-ad {
             width: 100%;
             height: 105px;
@@ -181,6 +172,7 @@
             align-items: center;
             text-align: center;
             margin-bottom: 10px;
+            overflow: hidden;
         }
 
         .refresh-text {
@@ -189,8 +181,6 @@
             color: #eeeeee;
             min-height: 15px;
         }
-
-        /* FINAL SCREEN */
 
         .final-screen {
             display: none;
@@ -239,8 +229,6 @@
             color: #eeeeee;
         }
 
-        /* RESTART BUTTON */
-
         .restart-button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -258,16 +246,12 @@
             background: rgba(255,255,255,0.16);
         }
 
-        /* FOOTER */
-
         footer {
             margin-top: 25px;
             font-size: 12px;
             color: rgba(255,255,255,0.8);
             text-align: center;
         }
-
-        /* TABLET */
 
         @media (max-width: 1050px) {
             .layout {
@@ -280,8 +264,6 @@
                 height: 210px;
             }
         }
-
-        /* MOBILE */
 
         @media (max-width: 900px) {
             .page {
@@ -314,8 +296,6 @@
                 font-size: 60px;
             }
         }
-
-        /* SMALL PHONES */
 
         @media (max-width: 500px) {
             .title {
@@ -356,20 +336,15 @@
 
 <div class="page">
 
-    <!-- TITLE -->
-
     <h1 class="title">⚡ ADD MARU🇧🇦 ⚡</h1>
 
     <p class="subtitle">
         Wait for the timer to finish and unlock my Brawl Stars friend link
     </p>
 
-    <!-- MAIN LAYOUT -->
-
     <div class="layout">
 
         <!-- LEFT AD -->
-
         <div class="side-ad">
             <div class="ad-title">ADVERTISEMENT</div>
             <div class="ad-text" id="leftAdText">
@@ -378,10 +353,7 @@
         </div>
 
         <!-- MAIN CARD -->
-
         <div class="card">
-
-            <!-- TIMER AREA -->
 
             <div id="timerScreen">
 
@@ -392,8 +364,6 @@
                 <div class="timer" id="timer">
                     05:00
                 </div>
-
-                <!-- PROGRESS -->
 
                 <div class="progress-container">
                     <div
@@ -406,16 +376,19 @@
                     Your link will be unlocked when the timer ends!
                 </div>
 
-                <!-- CENTER AD -->
-
+                <!-- IN-PAGE PUSH BANNER -->
                 <div class="center-ad">
+
                     <div class="ad-title">
                         ADVERTISEMENT
                     </div>
 
+                    <script>(function(s){s.dataset.zone='11963405',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
                     <div class="ad-text" id="centerAdText">
                         Discover something new
                     </div>
+
                 </div>
 
                 <div
@@ -427,7 +400,6 @@
             </div>
 
             <!-- FINAL SCREEN -->
-
             <div
                 class="final-screen"
                 id="finalScreen">
@@ -468,7 +440,6 @@
         </div>
 
         <!-- RIGHT AD -->
-
         <div class="side-ad">
             <div class="ad-title">ADVERTISEMENT</div>
             <div class="ad-text" id="rightAdText">
@@ -478,20 +449,13 @@
 
     </div>
 
-    <!-- FOOTER -->
-
     <footer>
         © 2026 Maru • Thanks for your support!
     </footer>
 
 </div>
 
-
 <script>
-
-    /* ==============================
-       TIMER SETTINGS
-    ============================== */
 
     const TOTAL_TIME = 5 * 60;
 
@@ -500,11 +464,6 @@
 
     let timerInterval;
     let refreshInterval;
-
-
-    /* ==============================
-       ELEMENTS
-    ============================== */
 
     const timerElement =
         document.getElementById("timer");
@@ -530,11 +489,6 @@
     const rightAdText =
         document.getElementById("rightAdText");
 
-
-    /* ==============================
-       ADVERTISEMENT MESSAGES
-    ============================== */
-
     const adMessages = [
         "Discover something new",
         "Check out this opportunity",
@@ -546,11 +500,6 @@
     ];
 
     let adIndex = 0;
-
-
-    /* ==============================
-       FORMAT TIMER
-    ============================== */
 
     function formatTime(seconds) {
 
@@ -566,11 +515,6 @@
             String(secs).padStart(2, "0")
         );
     }
-
-
-    /* ==============================
-       UPDATE TIMER
-    ============================== */
 
     function updateTimer() {
 
@@ -595,11 +539,6 @@
 
         timeLeft--;
     }
-
-
-    /* ==============================
-       ADVERTISEMENT REFRESH
-    ============================== */
 
     function refreshAdvertisement() {
 
@@ -627,11 +566,6 @@
             "Advertisement refresh in 30 seconds";
     }
 
-
-    /* ==============================
-       REFRESH COUNTDOWN
-    ============================== */
-
     function updateRefreshCountdown() {
 
         refreshCountdown--;
@@ -648,11 +582,6 @@
             + refreshCountdown
             + " seconds";
     }
-
-
-    /* ==============================
-       FINISH TIMER
-    ============================== */
 
     function finishTimer() {
 
@@ -672,11 +601,6 @@
             "block";
     }
 
-
-    /* ==============================
-       START TIMER
-    ============================== */
-
     function startTimer() {
 
         clearInterval(timerInterval);
@@ -691,11 +615,6 @@
                 1000
             );
     }
-
-
-    /* ==============================
-       RESTART TIMER
-    ============================== */
 
     function restartTimer() {
 
@@ -729,11 +648,6 @@
 
         startTimer();
     }
-
-
-    /* ==============================
-       INITIAL START
-    ============================== */
 
     timerElement.textContent =
         "05:00";
