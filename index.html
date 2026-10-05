@@ -13,245 +13,417 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
-    background: radial-gradient(
-        circle at top,
-        #263b72 0%,
-        #11182f 45%,
-        #080b18 100%
-    );
     color: white;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+    background:
+        radial-gradient(circle at 50% 0%, #315fe8 0%, #17245f 38%, #080d24 100%);
+    overflow-x: hidden;
 }
+
+/* Background effects */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::before {
+    width: 500px;
+    height: 500px;
+    top: -250px;
+    left: -150px;
+    background: rgba(75, 105, 255, 0.18);
+    filter: blur(70px);
+}
+
+body::after {
+    width: 450px;
+    height: 450px;
+    bottom: -250px;
+    right: -150px;
+    background: rgba(0, 180, 255, 0.12);
+    filter: blur(70px);
+}
+
+/* Main container */
 
 .page {
     width: 100%;
-    max-width: 1200px;
-    position: relative;
+    min-height: 100vh;
+    padding: 35px 25px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.container {
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
+/* Header */
+
+.header {
     text-align: center;
+    margin-bottom: 25px;
 }
 
 .logo {
-    font-size: 42px;
+    font-size: clamp(34px, 6vw, 58px);
     font-weight: 900;
-    margin-top: 15px;
-    text-shadow: 4px 4px 0 #000;
+    letter-spacing: 1px;
+    text-shadow:
+        0 4px 0 rgba(0,0,0,0.25),
+        0 0 25px rgba(100,150,255,0.5);
+}
+
+.logo span {
+    display: inline-block;
+    animation: lightning 2s infinite ease-in-out;
 }
 
 .subtitle {
     margin-top: 8px;
-    color: #bfc9ff;
-    font-size: 15px;
+    color: rgba(255,255,255,0.82);
+    font-size: clamp(14px, 2vw, 18px);
 }
 
-.card {
-    margin-top: 25px;
-    background: rgba(20, 27, 55, 0.95);
-    border: 2px solid rgba(255,255,255,0.12);
-    border-radius: 22px;
-    padding: 25px 18px;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.45);
-}
+/* Layout */
 
-.label {
-    color: #aeb9e8;
-    font-size: 14px;
-    margin-bottom: 8px;
-}
-
-#timer {
-    font-size: 72px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    text-shadow: 4px 4px 0 #000;
-}
-
-.progress-container {
+.content {
     width: 100%;
-    height: 18px;
-    background: #080b16;
-    border-radius: 20px;
-    overflow: hidden;
-    margin-top: 18px;
-    border: 2px solid rgba(255,255,255,0.1);
+    max-width: 1250px;
+    display: grid;
+    grid-template-columns: 180px minmax(320px, 600px) 180px;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
 }
 
-#progress {
-    width: 0%;
-    height: 100%;
-    background: linear-gradient(90deg, #ffd21f, #ff7b00);
-    transition: width 1s linear;
-}
-
-#status {
-    margin-top: 15px;
-    color: #cbd3ff;
-    font-size: 14px;
-}
+/* Advertisement boxes */
 
 .ad {
-    min-height: 100px;
+    height: 230px;
+    width: 100%;
+    border: 2px dashed rgba(255,255,255,0.55);
+    border-radius: 18px;
+    background: rgba(8, 13, 35, 0.42);
+    backdrop-filter: blur(8px);
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #0b0f20;
-    border: 1px dashed #59638d;
-    border-radius: 15px;
-    color: #8d98c4;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+    transition: 0.3s ease;
+}
+
+.ad:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,255,255,0.85);
+}
+
+.ad-content {
+    width: 100%;
+}
+
+.ad-label {
     font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    opacity: 0.9;
 }
 
-.ad strong {
-    color: #cbd3ff;
-    margin-bottom: 6px;
-}
-
-.center-ad {
-    margin-top: 25px;
-}
-
-.side-ad {
-    position: absolute;
-    top: 260px;
-    width: 180px;
-    min-height: 250px;
-}
-
-.left-ad {
-    left: 0;
-}
-
-.right-ad {
-    right: 0;
-}
-
-#reward {
-    display: none;
-    margin-top: 25px;
-    padding: 25px 18px;
-    border-radius: 20px;
-    background: linear-gradient(145deg, #193d24, #102718);
-    border: 2px solid #4ed477;
-    animation: appear 0.6s ease;
-}
-
-#reward h2 {
-    font-size: 27px;
-    margin-bottom: 10px;
-}
-
-#reward p {
-    color: #c9f6d3;
-    font-size: 15px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-.friend-name {
-    color: #4ed477;
-    font-weight: 900;
-}
-
-.brawl-button {
-    display: inline-block;
-    text-decoration: none;
-    color: white;
-    background: linear-gradient(180deg, #49d83d, #209b25);
-    padding: 15px 25px;
-    border-radius: 14px;
-    font-size: 18px;
-    font-weight: 900;
-    border: 3px solid #0c5d15;
-    box-shadow: 0 6px 0 #0b4a12;
-    transition: 0.15s;
-}
-
-.brawl-button:hover {
-    transform: translateY(-2px);
-}
-
-.brawl-button:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 #0b4a12;
-}
-
-#restart {
-    display: none;
-    margin-top: 20px;
-    border: none;
-    background: #303958;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 12px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.footer {
-    margin-top: 25px;
-    color: #697398;
+.ad-text {
+    margin-top: 7px;
     font-size: 12px;
+    opacity: 0.65;
+}
+
+/* Main timer card */
+
+.timer-card {
+    width: 100%;
+    padding: 30px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.35);
+    background: rgba(30, 48, 120, 0.48);
+    backdrop-filter: blur(15px);
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.12);
     text-align: center;
 }
 
-@keyframes appear {
+.timer-label {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    opacity: 0.9;
+}
+
+.timer {
+    margin: 10px 0 18px;
+    font-size: clamp(55px, 10vw, 90px);
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: white;
+    text-shadow:
+        0 4px 0 rgba(0,0,0,0.22),
+        0 0 25px rgba(255,255,255,0.28);
+}
+
+/* Progress bar */
+
+.progress-container {
+    width: 100%;
+    height: 16px;
+    background: rgba(0,0,0,0.42);
+    border-radius: 999px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #ffd42a, #ff8c2a, #ff4d5f);
+    transition: width 1s linear;
+    box-shadow: 0 0 15px rgba(255,190,50,0.45);
+}
+
+.status {
+    margin: 16px 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.86);
+}
+
+/* Center advertisement */
+
+.center-ad {
+    width: 100%;
+    height: 105px;
+    border: 2px dashed rgba(255,255,255,0.55);
+    border-radius: 17px;
+    background: rgba(5, 10, 30, 0.38);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.35s ease;
+}
+
+.center-ad.flash {
+    animation: adFlash 0.5s ease;
+}
+
+/* Ad timer */
+
+.ad-counter {
+    margin-top: 10px;
+    font-size: 11px;
+    opacity: 0.5;
+}
+
+/* Final reward */
+
+.reward {
+    display: none;
+    animation: rewardAppear 0.8s ease forwards;
+}
+
+.reward-icon {
+    font-size: 58px;
+    margin-bottom: 8px;
+    animation: bounce 1.2s infinite;
+}
+
+.reward h2 {
+    font-size: clamp(28px, 5vw, 42px);
+    margin-bottom: 10px;
+}
+
+.reward p {
+    color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+    margin-bottom: 22px;
+}
+
+/* Brawl Stars button */
+
+.friend-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 58px;
+    padding: 0 28px;
+    border-radius: 15px;
+    border: none;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    background: linear-gradient(135deg, #20c95a, #0a9f42);
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.3),
+        0 0 20px rgba(30,220,90,0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.friend-button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.35),
+        0 0 28px rgba(30,220,90,0.35);
+}
+
+.friend-button:active {
+    transform: scale(0.97);
+}
+
+.friend-name {
+    margin-top: 14px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Restart */
+
+.restart-button {
+    margin-top: 20px;
+    padding: 12px 22px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.restart-button:hover {
+    background: rgba(255,255,255,0.16);
+}
+
+/* Footer */
+
+.footer {
+    margin-top: 25px;
+    text-align: center;
+    color: rgba(255,255,255,0.62);
+    font-size: 12px;
+}
+
+/* Animations */
+
+@keyframes lightning {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.12) rotate(-5deg);
+    }
+}
+
+@keyframes adFlash {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.025);
+        opacity: 0.45;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes rewardAppear {
     from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: translateY(25px) scale(0.96);
     }
 
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0) scale(1);
     }
 }
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Tablet */
 
 @media (max-width: 900px) {
 
-    .side-ad {
-        position: static;
-        width: 100%;
-        min-height: 100px;
-        margin-top: 20px;
+    .content {
+        grid-template-columns: minmax(300px, 650px);
     }
 
-    .left-ad,
-    .right-ad {
+    .side-ad {
         display: none;
     }
 
-    .page {
-        max-width: 600px;
+    .timer-card {
+        padding: 26px 22px;
     }
 }
 
-@media (max-width: 480px) {
+/* Phone */
 
-    body {
-        padding: 12px;
+@media (max-width: 520px) {
+
+    .page {
+        padding: 25px 14px 20px;
     }
 
-    .logo {
-        font-size: 34px;
+    .header {
+        margin-bottom: 20px;
     }
 
-    #timer {
-        font-size: 58px;
+    .timer-card {
+        padding: 23px 16px;
+        border-radius: 20px;
     }
 
-    .card {
-        padding: 22px 14px;
+    .timer {
+        font-size: 62px;
+    }
+
+    .center-ad {
+        height: 90px;
+    }
+
+    .friend-button {
+        width: 100%;
+        padding: 0 15px;
+        font-size: 14px;
+    }
+
+    .subtitle {
+        font-size: 13px;
     }
 }
 </style>
@@ -261,269 +433,521 @@ body {
 
 <div class="page">
 
-    <!-- LEFT ADVERTISEMENT -->
-
-    <div class="ad side-ad left-ad">
-        <strong>ADVERTISEMENT</strong>
-        <span>Advertisement</span>
-    </div>
-
-    <!-- RIGHT ADVERTISEMENT -->
-
-    <div class="ad side-ad right-ad">
-        <strong>ADVERTISEMENT</strong>
-        <span>Advertisement</span>
-    </div>
-
-    <!-- MAIN CONTENT -->
-
-    <main class="container">
-
+    <header class="header">
         <div class="logo">
-            ⚡ BRAWL FRIEND ⚡
+            <span>⚡</span> BRAWL FRIEND <span>⚡</span>
         </div>
 
-        <div class="subtitle">
+        <p class="subtitle">
             Wait for the timer to finish and unlock my Brawl Stars link
+        </p>
+    </header>
+
+
+    <main class="content">
+
+        <!-- LEFT AD -->
+        <div class="ad side-ad">
+            <div class="ad-content">
+                <div class="ad-label" id="leftAdTitle">
+                    ADVERTISEMENT
+                </div>
+
+                <div class="ad-text" id="leftAdText">
+                    Advertisement
+                </div>
+            </div>
         </div>
 
-        <section class="card">
 
-            <div class="label">
-                MY FRIEND LINK WILL BE AVAILABLE IN
+        <!-- MAIN TIMER -->
+        <section class="timer-card">
+
+            <div id="timerSection">
+
+                <div class="timer-label">
+                    MY FRIEND LINK WILL BE AVAILABLE IN
+                </div>
+
+                <div class="timer" id="timer">
+                    05:00
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <div class="status" id="status">
+                    Your link will be unlocked when the timer ends!
+                </div>
+
+                <!-- CENTER AD -->
+                <div class="center-ad" id="centerAd">
+                    <div class="ad-content">
+
+                        <div class="ad-label" id="centerAdTitle">
+                            ADVERTISEMENT
+                        </div>
+
+                        <div class="ad-text" id="centerAdText">
+                            Advertisement
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="ad-counter" id="adCounter">
+                    Advertisement refresh in 30 seconds
+                </div>
+
             </div>
 
-            <div id="timer">
-                05:00
-            </div>
 
-            <div class="progress-container">
-                <div id="progress"></div>
-            </div>
+            <!-- FINAL REWARD -->
+            <div class="reward" id="reward">
 
-            <div id="status">
-                Your link will be unlocked when the timer ends!
-            </div>
-
-            <!-- CENTER ADVERTISEMENT -->
-
-            <div id="ad1" class="ad center-ad">
-
-                <strong>
-                    ADVERTISEMENT
-                </strong>
-
-                <span>
-                    Advertisement
-                </span>
-
-            </div>
-
-            <!-- REWARD -->
-
-            <div id="reward">
+                <div class="reward-icon">
+                    🎉
+                </div>
 
                 <h2>
-                    🎉 Your link is ready!
+                    Your link is ready!
                 </h2>
 
                 <p>
                     The timer has ended!<br>
-                    Now you can add me as a friend on Brawl Stars.
+                    You can now add me as a friend on Brawl Stars.
                 </p>
 
                 <a
-                    class="brawl-button"
+                    class="friend-button"
                     href="https://link.brawlstars.com/invite/friend/en/?tag=900QUJY9Y"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    🎮 ADD ME ON BRAWL STARS
+                    🎮 ADD MARU ON BRAWL STARS
                 </a>
 
-                <p style="margin-top:18px;margin-bottom:0;">
-                    Friend:
-                    <span class="friend-name">
-                        Maru
-                    </span>
-                </p>
+                <div class="friend-name">
+                    Friend: <strong>Maru</strong>
+                </div>
+
+                <button
+                    class="restart-button"
+                    onclick="restartTimer()"
+                >
+                    🔄 START AGAIN
+                </button>
 
             </div>
 
-            <!-- RESTART -->
-
-            <button id="restart">
-                🔄 RESTART
-            </button>
-
         </section>
 
-        <div class="footer">
-            © 2026 Maru • Thanks for your support!
+
+        <!-- RIGHT AD -->
+        <div class="ad side-ad">
+            <div class="ad-content">
+                <div class="ad-label" id="rightAdTitle">
+                    ADVERTISEMENT
+                </div>
+
+                <div class="ad-text" id="rightAdText">
+                    Advertisement
+                </div>
+            </div>
         </div>
 
     </main>
 
+
+    <footer class="footer">
+        © 2026 Maru • Thanks for your support!
+    </footer>
+
 </div>
+
 
 <script>
 
 const TOTAL_TIME = 5 * 60;
 
-let remaining = TOTAL_TIME;
+let timeRemaining = TOTAL_TIME;
 
-let timerInterval;
+let timerInterval = null;
 
-const timerElement =
-    document.getElementById("timer");
+let adInterval = null;
 
-const progressElement =
-    document.getElementById("progress");
+let adCountdownInterval = null;
 
-const statusElement =
-    document.getElementById("status");
+let adSeconds = 30;
 
-const adElement =
-    document.getElementById("ad1");
 
-const rewardElement =
-    document.getElementById("reward");
+/*
+    Advertisement placeholder content.
 
-const restartButton =
-    document.getElementById("restart");
+    These are NOT real advertisements.
+    They can later be replaced with a real ad network.
+*/
 
+const advertisements = [
+    {
+        title: "ADVERTISEMENT",
+        text: "Gaming • Technology • Entertainment"
+    },
+
+    {
+        title: "ADVERTISEMENT",
+        text: "Discover something new"
+    },
+
+    {
+        title: "ADVERTISEMENT",
+        text: "More content coming soon"
+    },
+
+    {
+        title: "ADVERTISEMENT",
+        text: "Thanks for supporting Maru"
+    }
+];
+
+
+let adIndex = 0;
+
+
+/* Elements */
+
+const timerElement = document.getElementById("timer");
+
+const progressBar = document.getElementById("progressBar");
+
+const statusElement = document.getElementById("status");
+
+const timerSection = document.getElementById("timerSection");
+
+const reward = document.getElementById("reward");
+
+const centerAd = document.getElementById("centerAd");
+
+const centerAdTitle = document.getElementById("centerAdTitle");
+
+const centerAdText = document.getElementById("centerAdText");
+
+const leftAdTitle = document.getElementById("leftAdTitle");
+
+const leftAdText = document.getElementById("leftAdText");
+
+const rightAdTitle = document.getElementById("rightAdTitle");
+
+const rightAdText = document.getElementById("rightAdText");
+
+const adCounter = document.getElementById("adCounter");
+
+
+/* Format timer */
 
 function formatTime(seconds) {
 
-    const minutes =
-        Math.floor(seconds / 60);
+    const minutes = Math.floor(seconds / 60);
 
-    const secs =
-        seconds % 60;
+    const secs = seconds % 60;
 
     return (
-        String(minutes).padStart(2, "0")
-        + ":" +
+        String(minutes).padStart(2, "0") +
+        ":" +
         String(secs).padStart(2, "0")
     );
 }
 
 
+/* Update timer */
+
 function updateTimer() {
 
-    timerElement.textContent =
-        formatTime(remaining);
-
-    const elapsed =
-        TOTAL_TIME - remaining;
+    timerElement.textContent = formatTime(timeRemaining);
 
     const percentage =
-        (elapsed / TOTAL_TIME) * 100;
+        (timeRemaining / TOTAL_TIME) * 100;
 
-    progressElement.style.width =
-        percentage + "%";
+    progressBar.style.width = percentage + "%";
 
-    if (
-        elapsed > 0 &&
-        elapsed % 30 === 0
-    ) {
-        showAdvertisement(elapsed / 30);
+
+    if (timeRemaining <= 60 && timeRemaining > 10) {
+
+        statusElement.textContent =
+            "Almost there! Your link is nearly ready!";
+
     }
 
-    if (remaining <= 0) {
+    else if (timeRemaining <= 10 && timeRemaining > 0) {
+
+        statusElement.textContent =
+            "Get ready! Unlocking your link...";
+
+    }
+
+
+    if (timeRemaining <= 0) {
 
         finishTimer();
 
         return;
     }
 
-    remaining--;
+    timeRemaining--;
 }
 
 
-function showAdvertisement(number) {
+/* Change advertisements */
 
-    adElement.querySelector("span")
-        .textContent =
-        "Advertisement #" + number;
+function changeAdvertisement() {
+
+    adIndex++;
+
+    if (adIndex >= advertisements.length) {
+        adIndex = 0;
+    }
+
+    const ad = advertisements[adIndex];
+
+
+    centerAdTitle.textContent = ad.title;
+
+    centerAdText.textContent = ad.text;
+
+
+    leftAdTitle.textContent = ad.title;
+
+    leftAdText.textContent = ad.text;
+
+
+    rightAdTitle.textContent = ad.title;
+
+    rightAdText.textContent = ad.text;
+
+
+    centerAd.classList.remove("flash");
+
+    void centerAd.offsetWidth;
+
+    centerAd.classList.add("flash");
+
+
+    adSeconds = 30;
+
+    updateAdCounter();
 }
 
+
+/* Advertisement countdown */
+
+function updateAdCounter() {
+
+    if (adSeconds <= 0) {
+
+        adCounter.textContent =
+            "Refreshing advertisement...";
+
+        return;
+    }
+
+
+    adCounter.textContent =
+        "Advertisement refresh in " +
+        adSeconds +
+        " seconds";
+}
+
+
+/* Start advertisement timer */
+
+function startAdvertisementTimer() {
+
+    clearInterval(adInterval);
+
+    clearInterval(adCountdownInterval);
+
+
+    adSeconds = 30;
+
+    updateAdCounter();
+
+
+    adInterval = setInterval(() => {
+
+        changeAdvertisement();
+
+    }, 30000);
+
+
+    adCountdownInterval = setInterval(() => {
+
+        adSeconds--;
+
+        updateAdCounter();
+
+    }, 1000);
+}
+
+
+/* Finish */
 
 function finishTimer() {
 
     clearInterval(timerInterval);
 
-    remaining = 0;
+    clearInterval(adInterval);
 
-    timerElement.textContent =
-        "00:00";
+    clearInterval(adCountdownInterval);
 
-    progressElement.style.width =
-        "100%";
 
-    statusElement.textContent =
-        "🎉 Your friend link has been unlocked!";
+    timerElement.textContent = "00:00";
 
-    rewardElement.style.display =
-        "block";
+    progressBar.style.width = "0%";
 
-    restartButton.style.display =
-        "inline-block";
 
-    adElement.style.display =
-        "none";
+    timerSection.style.display = "none";
+
+    reward.style.display = "block";
+
+
+    document.title = "Maru - Link Ready!";
+
+
+    createCelebration();
 }
 
 
+/* Celebration */
+
+function createCelebration() {
+
+    for (let i = 0; i < 30; i++) {
+
+        const confetti = document.createElement("div");
+
+        confetti.textContent = "✦";
+
+        confetti.style.position = "fixed";
+
+        confetti.style.left =
+            Math.random() * 100 + "vw";
+
+        confetti.style.top = "-20px";
+
+        confetti.style.fontSize =
+            12 + Math.random() * 20 + "px";
+
+        confetti.style.color = "white";
+
+        confetti.style.zIndex = "9999";
+
+        confetti.style.pointerEvents = "none";
+
+        confetti.style.animation =
+            "fall " +
+            (2 + Math.random() * 3) +
+            "s linear forwards";
+
+
+        document.body.appendChild(confetti);
+
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 5500);
+    }
+}
+
+
+/* Restart */
+
 function restartTimer() {
 
-    clearInterval(timerInterval);
+    timeRemaining = TOTAL_TIME;
 
-    remaining = TOTAL_TIME;
+    timerSection.style.display = "block";
 
-    timerElement.textContent =
-        "05:00";
-
-    progressElement.style.width =
-        "0%";
+    reward.style.display = "none";
 
     statusElement.textContent =
         "Your link will be unlocked when the timer ends!";
 
-    rewardElement.style.display =
-        "none";
 
-    restartButton.style.display =
-        "none";
+    document.title =
+        "Maru - Brawl Stars Friend";
 
-    adElement.style.display =
-        "flex";
 
-    adElement.querySelector("span")
-        .textContent =
-        "Advertisement";
+    adIndex = 0;
 
-    startTimer();
+    centerAdTitle.textContent =
+        advertisements[0].title;
+
+    centerAdText.textContent =
+        advertisements[0].text;
+
+    leftAdTitle.textContent =
+        advertisements[0].title;
+
+    leftAdText.textContent =
+        advertisements[0].text;
+
+    rightAdTitle.textContent =
+        advertisements[0].title;
+
+    rightAdText.textContent =
+        advertisements[0].text;
+
+
+    updateTimer();
+
+    startAdvertisementTimer();
+
+    clearInterval(timerInterval);
+
+    timerInterval = setInterval(
+        updateTimer,
+        1000
+    );
 }
 
 
-function startTimer() {
+/* Confetti animation */
 
-    timerInterval =
-        setInterval(
-            updateTimer,
-            1000
-        );
+const style = document.createElement("style");
+
+style.innerHTML = `
+@keyframes fall {
+
+    0% {
+        transform:
+            translateY(-20px)
+            rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+        opacity: 0;
+    }
 }
+`;
+
+document.head.appendChild(style);
 
 
-restartButton.addEventListener(
-    "click",
-    restartTimer
+/* Start */
+
+updateTimer();
+
+startAdvertisementTimer();
+
+timerInterval = setInterval(
+    updateTimer,
+    1000
 );
-
-
-startTimer();
 
 </script>
 
