@@ -26,16 +26,6 @@
         .appendChild(document.createElement('script')))
     </script>
 
-    <!-- MONETAG - ONCLICK / POPUNDER -->
-    <script>
-        (function(s){
-            s.dataset.zone='11963444',
-            s.src='https://al5sm.com/tag.min.js'
-        })([document.documentElement, document.body]
-        .filter(Boolean).pop()
-        .appendChild(document.createElement('script')))
-    </script>
-
     <style>
         * {
             box-sizing: border-box;
@@ -104,6 +94,15 @@
                 0 0 30px rgba(0, 120, 255, 0.18),
                 inset 0 0 30px rgba(0, 80, 150, 0.08);
             text-align: center;
+        }
+
+        .countdown-title {
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-top: 5px;
+            margin-bottom: 12px;
+            color: #ffffff;
         }
 
         .timer {
@@ -246,6 +245,10 @@
             h1 {
                 font-size: 27px;
             }
+
+            .countdown-title {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -269,6 +272,10 @@
         <div class="card">
 
             <div id="timerScreen">
+
+                <div class="countdown-title">
+                    MY FRIEND LINK WILL BE AVAILABLE IN
+                </div>
 
                 <div class="timer" id="timer">
                     05:00
@@ -342,7 +349,6 @@
     <footer>
         © 2026 Maru • Brawl Stars
     </footer>
-
 
     <script>
 
