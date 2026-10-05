@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Maru - Brawl Stars Friend</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: radial-gradient(
+        circle at top,
+        #263b72 0%,
+        #11182f 45%,
+        #080b18 100%
+    );
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.page {
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+
+.logo {
+    font-size: 42px;
+    font-weight: 900;
+    margin-top: 15px;
+    text-shadow: 4px 4px 0 #000;
+}
+
+.subtitle {
+    margin-top: 8px;
+    color: #bfc9ff;
+    font-size: 15px;
+}
+
+.card {
+    margin-top: 25px;
+    background: rgba(20, 27, 55, 0.95);
+    border: 2px solid rgba(255,255,255,0.12);
+    border-radius: 22px;
+    padding: 25px 18px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.45);
+}
+
+.label {
+    color: #aeb9e8;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+#timer {
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 0 #000;
+}
+
+.progress-container {
+    width: 100%;
+    height: 18px;
+    background: #080b16;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 18px;
+    border: 2px solid rgba(255,255,255,0.1);
+}
+
+#progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ffd21f, #ff7b00);
+    transition: width 1s linear;
+}
+
+#status {
+    margin-top: 15px;
+    color: #cbd3ff;
+    font-size: 14px;
+}
+
+.ad {
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0b0f20;
+    border: 1px dashed #59638d;
+    border-radius: 15px;
+    color: #8d98c4;
+    font-size: 13px;
+}
+
+.ad strong {
+    color: #cbd3ff;
+    margin-bottom: 6px;
+}
+
+.center-ad {
+    margin-top: 25px;
+}
+
+.side-ad {
+    position: absolute;
+    top: 260px;
+    width: 180px;
+    min-height: 250px;
+}
+
+.left-ad {
+    left: 0;
+}
+
+.right-ad {
+    right: 0;
+}
+
+#reward {
+    display: none;
+    margin-top: 25px;
+    padding: 25px 18px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #193d24, #102718);
+    border: 2px solid #4ed477;
+    animation: appear 0.6s ease;
+}
+
+#reward h2 {
+    font-size: 27px;
+    margin-bottom: 10px;
+}
+
+#reward p {
+    color: #c9f6d3;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.friend-name {
+    color: #4ed477;
+    font-weight: 900;
+}
+
+.brawl-button {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(180deg, #49d83d, #209b25);
+    padding: 15px 25px;
+    border-radius: 14px;
+    font-size: 18px;
+    font-weight: 900;
+    border: 3px solid #0c5d15;
+    box-shadow: 0 6px 0 #0b4a12;
+    transition: 0.15s;
+}
+
+.brawl-button:hover {
+    transform: translateY(-2px);
+}
+
+.brawl-button:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #0b4a12;
+}
+
+#restart {
+    display: none;
+    margin-top: 20px;
+    border: none;
+    background: #303958;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.footer {
+    margin-top: 25px;
+    color: #697398;
+    font-size: 12px;
+    text-align: center;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 900px) {
+
+    .side-ad {
+        position: static;
+        width: 100%;
+        min-height: 100px;
+        margin-top: 20px;
+    }
+
+    .left-ad,
+    .right-ad {
+        display: none;
+    }
+
+    .page {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 12px;
+    }
+
+    .logo {
+        font-size: 34px;
+    }
+
+    #timer {
+        font-size: 58px;
+    }
+
+    .card {
+        padding: 22px 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- LEFT ADVERTISEMENT -->
+
+    <div class="ad side-ad left-ad">
+        <strong>ADVERTISEMENT</strong>
+        <span>Advertisement</span>
+    </div>
+
+    <!-- RIGHT ADVERTISEMENT -->
+
+    <div class="ad side-ad right-ad">
+        <strong>ADVERTISEMENT</strong>
+        <span>Advertisement</span>
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="container">
+
+        <div class="logo">
+            ⚡ BRAWL FRIEND ⚡
+        </div>
+
+        <div class="subtitle">
+            Wait for the timer to finish and unlock my Brawl Stars link
+        </div>
+
+        <section class="card">
+
+            <div class="label">
+                MY FRIEND LINK WILL BE AVAILABLE IN
+            </div>
+
+            <div id="timer">
+                05:00
+            </div>
+
+            <div class="progress-container">
+                <div id="progress"></div>
+            </div>
+
+            <div id="status">
+                Your link will be unlocked when the timer ends!
+            </div>
+
+            <!-- CENTER ADVERTISEMENT -->
+
+            <div id="ad1" class="ad center-ad">
+
+                <strong>
+                    ADVERTISEMENT
+                </strong>
+
+                <span>
+                    Advertisement
+                </span>
+
+            </div>
+
+            <!-- REWARD -->
+
+            <div id="reward">
+
+                <h2>
+                    🎉 Your link is ready!
+                </h2>
+
+                <p>
+                    The timer has ended!<br>
+                    Now you can add me as a friend on Brawl Stars.
+                </p>
+
+                <a
+                    class="brawl-button"
+                    href="https://link.brawlstars.com/invite/friend/en/?tag=900QUJY9Y"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    🎮 ADD ME ON BRAWL STARS
+                </a>
+
+                <p style="margin-top:18px;margin-bottom:0;">
+                    Friend:
+                    <span class="friend-name">
+                        Maru
+                    </span>
+                </p>
+
+            </div>
+
+            <!-- RESTART -->
+
+            <button id="restart">
+                🔄 RESTART
+            </button>
+
+        </section>
+
+        <div class="footer">
+            © 2026 Maru • Thanks for your support!
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+
+const TOTAL_TIME = 5 * 60;
+
+let remaining = TOTAL_TIME;
+
+let timerInterval;
+
+const timerElement =
+    document.getElementById("timer");
+
+const progressElement =
+    document.getElementById("progress");
+
+const statusElement =
+    document.getElementById("status");
+
+const adElement =
+    document.getElementById("ad1");
+
+const rewardElement =
+    document.getElementById("reward");
+
+const restartButton =
+    document.getElementById("restart");
+
+
+function formatTime(seconds) {
+
+    const minutes =
+        Math.floor(seconds / 60);
+
+    const secs =
+        seconds % 60;
+
+    return (
+        String(minutes).padStart(2, "0")
+        + ":" +
+        String(secs).padStart(2, "0")
+    );
+}
+
+
+function updateTimer() {
+
+    timerElement.textContent =
+        formatTime(remaining);
+
+    const elapsed =
+        TOTAL_TIME - remaining;
+
+    const percentage =
+        (elapsed / TOTAL_TIME) * 100;
+
+    progressElement.style.width =
+        percentage + "%";
+
+    if (
+        elapsed > 0 &&
+        elapsed % 30 === 0
+    ) {
+        showAdvertisement(elapsed / 30);
+    }
+
+    if (remaining <= 0) {
+
+        finishTimer();
+
+        return;
+    }
+
+    remaining--;
+}
+
+
+function showAdvertisement(number) {
+
+    adElement.querySelector("span")
+        .textContent =
+        "Advertisement #" + number;
+}
+
+
+function finishTimer() {
+
+    clearInterval(timerInterval);
+
+    remaining = 0;
+
+    timerElement.textContent =
+        "00:00";
+
+    progressElement.style.width =
+        "100%";
+
+    statusElement.textContent =
+        "🎉 Your friend link has been unlocked!";
+
+    rewardElement.style.display =
+        "block";
+
+    restartButton.style.display =
+        "inline-block";
+
+    adElement.style.display =
+        "none";
+}
+
+
+function restartTimer() {
+
+    clearInterval(timerInterval);
+
+    remaining = TOTAL_TIME;
+
+    timerElement.textContent =
+        "05:00";
+
+    progressElement.style.width =
+        "0%";
+
+    statusElement.textContent =
+        "Your link will be unlocked when the timer ends!";
+
+    rewardElement.style.display =
+        "none";
+
+    restartButton.style.display =
+        "none";
+
+    adElement.style.display =
+        "flex";
+
+    adElement.querySelector("span")
+        .textContent =
+        "Advertisement";
+
+    startTimer();
+}
+
+
+function startTimer() {
+
+    timerInterval =
+        setInterval(
+            updateTimer,
+            1000
+        );
+}
+
+
+restartButton.addEventListener(
+    "click",
+    restartTimer
+);
+
+
+startTimer();
+
+</script>
+
+</body>
+</html>
